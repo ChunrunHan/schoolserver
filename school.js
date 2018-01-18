@@ -16,14 +16,14 @@ app.use(bodyParser.urlencoded({
 // 创建 applicati;on/x-www-form-urlencoded 编码解析
 
 //	连接本地mysql数据库
-var mysql = require('mysql');
-var connection = mysql.createConnection({
-	host: 'www.rainrain.xin',
-	user: 'root',
-	password: '7773712',
-	database: 'school'
-});
-connection.connect();
+// var mysql = require('mysql');
+// var connection = mysql.createConnection({
+// 	host: 'www.rainrain.xin',
+// 	user: 'root',
+// 	password: '7773712',
+// 	database: 'school'
+// });
+// connection.connect();
 
 // oss图片上传获取sts接口
 app.get('/school/sts', sts.getSTS)

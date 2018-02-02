@@ -50,3 +50,21 @@ exports.getSTS = function(req, res) {
 	});
 
 }
+
+//	oss 删除图片
+exports.delImg = function(){
+	var co = require('co');
+	var OSS = require('ali-oss')
+	var client = new OSS({
+	  region: '<Your region>',
+	  accessKeyId: '<Your AccessKeyId>',
+	  accessKeySecret: '<Your AccessKeySecret>',
+	  bucket: 'Your bucket name'
+	});
+	co(function* () {
+	  var result = yield client.delete('object-key');
+	  console.log(result);
+	}).catch(function (err) {
+	  console.log(err);
+	});
+}

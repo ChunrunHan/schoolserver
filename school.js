@@ -15,18 +15,15 @@ app.use(bodyParser.urlencoded({
 // for parsing application/x-www-form-urlencoded
 // 创建 applicati;on/x-www-form-urlencoded 编码解析
 
-//	连接本地mysql数据库
-// var mysql = require('mysql');
-// var connection = mysql.createConnection({
-// 	host: 'www.rainrain.xin',
-// 	user: 'root',
-// 	password: '7773712',
-// 	database: 'school'
-// });
-// connection.connect();
 
+//-----------------------oss公用部分--------------------------------------------
 // oss图片上传获取sts接口
 app.get('/school/sts', sts.getSTS)
+//	图片删除
+app.get('/school/delOssImg/:filename', sts.delOssImg);
+
+
+//-----------------------用户接口------------------------------------------------
 //	用户注册接口
 app.post('/school/user/register',user.register);
 //	用户登录
@@ -37,11 +34,9 @@ app.get('/school/user/search/:page/:size', user.search);
 app.delete('/school/user/delete/:id', user.delete);
 //	编辑用户
 app.put('/school/user/edit', user.edit);
-//	图片上传
-app.post('/school/imgUpdate', function(req, res) {
-	console.log(req.body);
-});
 
+
+//----------------------电话接口------------------------------------------------
 //	新增电话
 app.post('/school/phone/add', phone.add);
 //	获取电话
@@ -50,6 +45,8 @@ app.get('/school/phone/search/:page/:size', phone.search);
 app.delete('/school/phone/delete/:id', phone.delete);
 //	编辑电话
 app.put('/school/phone/edit', phone.edit);
+
+
 
 
 //	服务器监听端口

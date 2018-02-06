@@ -1,9 +1,12 @@
 var STS = require('ali-oss').STS;
 var co = require('co');
+//var OSS = require('ali-oss').Wrapper;
+var OSS = require('ali-oss')
 var fs = require('fs');
 var crypto = require('crypto');
 var CryptoJS = require('crypto-js');
 
+//	图片上传获取sts
 exports.getSTS = function(req, res) {
 	var conf = JSON.parse(fs.readFileSync('./config.json'));
 	var policy;
@@ -52,18 +55,22 @@ exports.getSTS = function(req, res) {
 }
 
 //	oss 删除图片
-exports.delImg = function(){
-	var co = require('co');
-	var OSS = require('ali-oss')
+exports.delOssImg = function(req, res){
+	console.log('删除的图片'+req.params.filename);
+	var filename = req.params.filename;
+	var conf = JSON.parse(fs.readFileSync('./config.json'));
 	var client = new OSS({
-	  region: '<Your region>',
-	  accessKeyId: '<Your AccessKeyId>',
-	  accessKeySecret: '<Your AccessKeySecret>',
-	  bucket: 'Your bucket name'
+	  region: 'oss-cn-qingdao',
+	  accessKeyId: conf.AccessKeyId,
+	  accessKeySecret: conf.AccessKeySecret,
+	  bucket: 'zaoyuan'
 	});
+	
 	co(function* () {
-	  var result = yield client.delete('object-key');
+	 console.log(req.params.filename)
+	  var result = yield client.delete(filename);
 	  console.log(result);
+	  res.json(result)
 	}).catch(function (err) {
 	  console.log(err);
 	});

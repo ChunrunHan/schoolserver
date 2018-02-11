@@ -1,6 +1,5 @@
 var STS = require('ali-oss').STS;
 var co = require('co');
-//var OSS = require('ali-oss').Wrapper;
 var OSS = require('ali-oss')
 var fs = require('fs');
 var crypto = require('crypto');

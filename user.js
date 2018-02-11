@@ -1,6 +1,7 @@
 var mysql = require('mysql');
 var connection = mysql.createConnection({
-	host: 'www.rainrain.xin',
+//	host: 'www.rainrain.xin',
+	host:'localhost',
 	user: 'root',
 	password: '7773712',
 	database: 'school'
@@ -24,7 +25,7 @@ exports.register = function(req, res) {
 		// 插入数据
 		if(result.length == 0) {
 			console.log('插入操作')
-			insetUserInfo(req.body.username, req.body.mobile, req.body.password, req.body.role, res);
+			insetUserInfo(req.body.username, req.body.mobile, req.body.password, req.body.role, req.body.avatar, res);
 			return;
 		} else {
 			console.log('已存在')
@@ -206,12 +207,12 @@ exports.edit = function(req,res){
 	});
 }
 
-function insetUserInfo(username, mobile, password, role, res) {
+function insetUserInfo(username, mobile, password, role, avatar,res) {
 	var addSql = 'INSERT INTO user(id,username,mobile,password,role,avatar) VALUES(?,?,?,?,?,?)';
 	var id = uuid();
 	console.log('用户ID ' + id);
 	console.log('用户密码：' + password);
-	var addSqlParams = [id, username, mobile, password, role];
+	var addSqlParams = [id, username, mobile, password, role, avatar];
 	connection.query(addSql, addSqlParams, function(err, result) {
 		if(err) {
 			var json = {

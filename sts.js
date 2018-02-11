@@ -31,9 +31,9 @@ exports.getSTS = function(req, res) {
 
 		var signature = crypto.createHmac('sha1', result.credentials.AccessKeySecret);
 		signature = signature.update(new Buffer('POST' + '\n' + '\n' + '\n' + new Date().toGMTString() + '\nx-oss-security-token:' + result.credentials.SecurityToken + '\n/zaoyuan/', 'utf8')).digest('base64');
-		console.log('POST\n\n\n' + new Date().toGMTString() + '\nx-oss-security-token:' + result.credentials.SecurityToken + '\n/zaoyuan/');
-		console.log(new Date().toGMTString());
-		console.log(signature);
+//		console.log('POST\n\n\n' + new Date().toGMTString() + '\nx-oss-security-token:' + result.credentials.SecurityToken + '\n/zaoyuan/');
+//		console.log(new Date().toGMTString());
+//		console.log(signature);
 
 		res.json({
 			StatusCode: result.res.statusCode,

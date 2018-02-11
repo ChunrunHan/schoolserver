@@ -207,7 +207,7 @@ exports.edit = function(req,res){
 }
 
 function insetUserInfo(username, mobile, password, role, res) {
-	var addSql = 'INSERT INTO user(id,username,mobile,password,role) VALUES(?,?,?,?,?)';
+	var addSql = 'INSERT INTO user(id,username,mobile,password,role,avatar) VALUES(?,?,?,?,?,?)';
 	var id = uuid();
 	console.log('用户ID ' + id);
 	console.log('用户密码：' + password);

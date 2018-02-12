@@ -12,7 +12,7 @@ exports.add = function(req, res) {
 	console.log(req.body.mobile);
 	var sql = 'SELECT mobile FROM school.phone where mobile =' + req.body.mobile;
 	console.log(sql);
-	//	查询是否已经注册过
+	//	查询是否已经添加过
 	connection.query(sql, function(err, result) {
 		console.log(result);
 		if(err) {
@@ -20,7 +20,7 @@ exports.add = function(req, res) {
 			return;
 		}
 
-		// 如果电话不存在的话就加入该电话
+		// 如果电话不存在的话就插入电话号码
 		// 插入数据
 		if(result.length == 0) {
 			console.log('插入操作')
@@ -41,53 +41,53 @@ exports.add = function(req, res) {
 
 }
 
-exports.login = function( req, res){
-	//	前后台用户登录接口
-	console.log(req.params.usermobile);
-	console.log(req.params.userpass);
-	//	查询用户是否存在
-	var sql = 'select * from user where mobile = ' + req.params.usermobile;
-	connection.query(sql, function(err, result) {
-		if(err) {
-			console.log(err.message);
-			res.json(err.message);
-			return;
-		}
-
-		console.log(result);
-
-		if(result.length == 0) {
-			var json = {
-				errCode: 1,
-				errMsg: '用户不存在',
-				dataList: []
-			}
-			res.json(json);
-		} else {
-			//	用户存在判断 密码是否正确
-			console.log('用户存在');
-			console.log(result);
-			console.log(result[0].password);
-			if(req.params.userpass == result[0].password) {
-
-				var json = {
-					errCode: 0,
-					errMsg: '登录成功',
-					dataList: result
-				}
-				res.json(json);
-			} else {
-				var json = {
-					errCode: 2,
-					errMsg: '用户密码错误',
-					dataList: []
-				}
-				res.json(json);
-			}
-
-		}
-	})
-}
+//exports.login = function( req, res){
+//	//	前后台用户登录接口
+//	console.log(req.params.usermobile);
+//	console.log(req.params.userpass);
+//	//	查询用户是否存在
+//	var sql = 'select * from user where mobile = ' + req.params.usermobile;
+//	connection.query(sql, function(err, result) {
+//		if(err) {
+//			console.log(err.message);
+//			res.json(err.message);
+//			return;
+//		}
+//
+//		console.log(result);
+//
+//		if(result.length == 0) {
+//			var json = {
+//				errCode: 1,
+//				errMsg: '用户不存在',
+//				dataList: []
+//			}
+//			res.json(json);
+//		} else {
+//			//	用户存在判断 密码是否正确
+//			console.log('用户存在');
+//			console.log(result);
+//			console.log(result[0].password);
+//			if(req.params.userpass == result[0].password) {
+//
+//				var json = {
+//					errCode: 0,
+//					errMsg: '登录成功',
+//					dataList: result
+//				}
+//				res.json(json);
+//			} else {
+//				var json = {
+//					errCode: 2,
+//					errMsg: '用户密码错误',
+//					dataList: []
+//				}
+//				res.json(json);
+//			}
+//
+//		}
+//	})
+//}
 
 exports.search = function( req, res){
 	console.log(req.params.page);
@@ -140,7 +140,7 @@ exports.search = function( req, res){
 exports.delete = function (req,res){
 	console.log(req.params.id);
 	console.log(typeof req.params.id);
-	//	删除用户
+	//	删除电话
 	var delSql = 'DELETE FROM phone where id="' + req.params.id + '"';
 	connection.query(delSql, function(err, result) {
 		if(err) {

@@ -30,6 +30,10 @@ app.post('/school/user/register',user.register);
 app.get('/school/user/login/:usermobile/:userpass', user.login);
 //	查看所有用户
 app.get('/school/user/search/:page/:size', user.search);
+//	根据用户角色查询用户
+app.get('/school/user/search/role/:userrole/:page/:size', user.searchRole);
+//	根据用户名查询用户
+app.get('/school/user/search/name/:username/:page/:size', user.searchName);
 //	删除用户
 app.delete('/school/user/delete/:id', user.delete);
 //	编辑用户

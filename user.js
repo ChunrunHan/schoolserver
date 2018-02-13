@@ -90,7 +90,7 @@ exports.login = function( req, res){
 	})
 }
 
-exports.search = function( req, res){
+exports.search = function(req, res){
 	console.log(req.params.page);
 	console.log(typeof req.params.size);
 	console.log(req.params.size * req.params.page);
@@ -136,6 +136,104 @@ exports.search = function( req, res){
 		})
 	});
 }
+
+
+exports.searchRole = function(req, res){
+	console.log(req.params.page);
+	console.log(typeof req.params.size);
+	console.log(req.params.size * req.params.page);
+	//	查询所有用户
+	var totalRecords;
+	var sql = 'select * from user where role= '+ req.params.role +'limit  ' + req.params.size * req.params.page + ',' + req.params.size;
+	var all = 'select count(*) as totalRecords from user';
+	connection.query(all, function(err, result) {
+		if(err) {
+			console.log(err.message);
+			res.json(err.message);
+			return;
+		}
+		console.log(result)
+		totalRecords = result[0].totalRecords;
+		console.log(totalRecords)
+		connection.query(sql, function(err, result) {
+			if(err) {
+				console.log(err.message);
+				res.json(err.message);
+				return;
+			}
+
+			console.log(result);
+
+			if(result.length == 0) {
+				var json = {
+					errCode: 1,
+					errMsg: '没有更多数据了',
+					dataList: []
+				}
+				res.json(json);
+			} else {
+				var json = {
+					errCode: 0,
+					errMsg: '获取数据成功',
+					totalRecords: totalRecords,
+					dataList: result
+				}
+				res.json(json);
+
+			}
+		})
+	});
+}
+
+
+exports.searchName = function(req, res){
+	console.log(req.params.page);
+	console.log(typeof req.params.size);
+	console.log(req.params.size * req.params.page);
+	//	查询所有用户
+	var totalRecords;
+	var sql = 'select * from user where username like %'+req.params.username+'% limit '+req.params.size * req.params.page + ',' + req.params.size;
+	var all = 'select count(*) as totalRecords from user';
+	connection.query(all, function(err, result) {
+		if(err) {
+			console.log(err.message);
+			res.json(err.message);
+			return;
+		}
+		console.log(result)
+		totalRecords = result[0].totalRecords;
+		console.log(totalRecords)
+		connection.query(sql, function(err, result) {
+			if(err) {
+				console.log(err.message);
+				res.json(err.message);
+				return;
+			}
+
+			console.log(result);
+
+			if(result.length == 0) {
+				var json = {
+					errCode: 1,
+					errMsg: '没有更多数据了',
+					dataList: []
+				}
+				res.json(json);
+			} else {
+				var json = {
+					errCode: 0,
+					errMsg: '获取数据成功',
+					totalRecords: totalRecords,
+					dataList: result
+				}
+				res.json(json);
+
+			}
+		})
+	});
+}
+
+
 
 exports.delete = function (req,res){
 	//	后台删除用户接口

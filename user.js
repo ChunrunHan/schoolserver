@@ -142,7 +142,7 @@ exports.searchRole = function(req, res){
 	console.log(req.params.page);
 	console.log(typeof req.params.size);
 	console.log(req.params.size * req.params.page);
-	//	查询所有用户
+	//	根据角色查询所有用户
 	var totalRecords;
 	var sql = 'select * from user where role= '+ req.params.role +'limit  ' + req.params.size * req.params.page + ',' + req.params.size;
 	var all = 'select count(*) as totalRecords from user';
@@ -190,7 +190,7 @@ exports.searchName = function(req, res){
 	console.log(req.params.page);
 	console.log(typeof req.params.size);
 	console.log(req.params.size * req.params.page);
-	//	查询所有用户
+	//	根据用户名查询所有用户
 	var totalRecords;
 	var sql = 'select * from user where username like %'+req.params.username+'% limit '+req.params.size * req.params.page + ',' + req.params.size;
 	var all = 'select count(*) as totalRecords from user';

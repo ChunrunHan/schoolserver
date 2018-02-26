@@ -140,12 +140,13 @@ exports.search = function(req, res){
 
 exports.searchRole = function(req, res){
 	console.log(req.params.page);
-	console.log(typeof req.params.size);
+	console.log(req.params.userrole);
 	console.log(req.params.size * req.params.page);
 	//	根据角色查询所有用户
 	var totalRecords;
-	var sql = 'select * from user where role= '+ req.params.role +'limit  ' + req.params.size * req.params.page + ',' + req.params.size;
-	var all = 'select count(*) as totalRecords from user';
+	var sql = 'select * from user where role = '+ req.params.userrole + ' limit ' + req.params.size * req.params.page + ',' + req.params.size;
+	var all = 'select count(*) as totalRecords from user where role = '+ req.params.userrole;
+	console.log(sql)
 	connection.query(all, function(err, result) {
 		if(err) {
 			console.log(err.message);
@@ -154,7 +155,7 @@ exports.searchRole = function(req, res){
 		}
 		console.log(result)
 		totalRecords = result[0].totalRecords;
-		console.log(totalRecords)
+		console.log('查找的用户总数'+totalRecords)
 		connection.query(sql, function(err, result) {
 			if(err) {
 				console.log(err.message);

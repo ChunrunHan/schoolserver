@@ -42,54 +42,6 @@ exports.add = function(req, res) {
 
 }
 
-//exports.login = function( req, res){
-//	//	前后台用户登录接口
-//	console.log(req.params.usermobile);
-//	console.log(req.params.userpass);
-//	//	查询用户是否存在
-//	var sql = 'select * from user where mobile = ' + req.params.usermobile;
-//	connection.query(sql, function(err, result) {
-//		if(err) {
-//			console.log(err.message);
-//			res.json(err.message);
-//			return;
-//		}
-//
-//		console.log(result);
-//
-//		if(result.length == 0) {
-//			var json = {
-//				errCode: 1,
-//				errMsg: '用户不存在',
-//				dataList: []
-//			}
-//			res.json(json);
-//		} else {
-//			//	用户存在判断 密码是否正确
-//			console.log('用户存在');
-//			console.log(result);
-//			console.log(result[0].password);
-//			if(req.params.userpass == result[0].password) {
-//
-//				var json = {
-//					errCode: 0,
-//					errMsg: '登录成功',
-//					dataList: result
-//				}
-//				res.json(json);
-//			} else {
-//				var json = {
-//					errCode: 2,
-//					errMsg: '用户密码错误',
-//					dataList: []
-//				}
-//				res.json(json);
-//			}
-//
-//		}
-//	})
-//}
-
 exports.search = function( req, res){
 	console.log(req.params.page);
 	console.log(typeof req.params.size);
@@ -201,10 +153,11 @@ exports.edit = function(req,res){
 
 //	电话插入到数据库
 function insetPhoneInfo(contacts, mobile, memo, res) {
-	var addSql = 'INSERT INTO user(id,contacts,mobile,memo) VALUES(?,?,?,?)';
-	var id = uuid();
-	console.log('电话ID ' + id);
-	var addSqlParams = [id, contacts, mobile, memo];
+	var addSql = 'INSERT INTO phone(contacts,mobile,memo) VALUES(?,?,?)';
+//	var id = uuid();
+//	console.log('电话ID ' + id);
+	var addSqlParams = [contacts, mobile, memo];
+	console.log(addSqlParams)
 	connection.query(addSql, addSqlParams, function(err, result) {
 		if(err) {
 			var json = {

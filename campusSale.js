@@ -27,7 +27,8 @@ exports.search = function(req, res){
 	console.log(req.params.size * req.params.page);
 	//	查询所有动态列表
 	var totalRecords;
-	var sql = 'select * from sale limit  ' + req.params.size * req.params.page + ',' + req.params.size;
+//	var sql = 'select * from sale limit  ' + req.params.size * req.params.page + ',' + req.params.size;
+	var sql = 'select sale.*, user.avatar,user.username from sale left join user on sale.userId = user.id order by sale.createTime desc limit  ' + req.params.size * req.params.page + ',' + req.params.size;
 	var all = 'select count(*) as totalRecords from sale';
 	connection.query(all, function(err, result) {
 		if(err) {

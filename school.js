@@ -6,7 +6,7 @@ var bodyParser = require('body-parser');
 var sts = require('./sts');
 var user = require('./user');
 var phone = require('./phone');
-var collegeSale = require('./collegeSale');
+var campusSale = require('./campusSale');
 //环境变量
 app.use(cors());
 app.use(bodyParser.json()); // for parsing application/json
@@ -63,9 +63,9 @@ app.delete('/school/campusSale/delete/:id', campusSale.delete);
 // // 删除评论
 // app.delete('/school/campusSale/user/feed/comment/:commentId/delete',campusSale.delFeed);
 // 点赞
-app.get('/school/campusSale/user/feed/:id/like',campusSale.likeFeed);
+//app.get('/school/campusSale/user/feed/:id/like',campusSale.likeFeed);
 // 取消赞
-app.get('/school/campusSale/user/feed/:id/cancelLike',campusSale.cancelLike);
+//app.get('/school/campusSale/user/feed/:id/cancelLike',campusSale.cancelLike);
 
 
 

@@ -7,6 +7,10 @@ var sts = require('./sts');
 var user = require('./user');
 var phone = require('./phone');
 var campusSale = require('./campusSale');
+var activity = require('./activity');
+var study = require('./study');
+var work = require('./work');
+
 //环境变量
 app.use(cors());
 app.use(bodyParser.json()); // for parsing application/json
@@ -58,14 +62,30 @@ app.post('/school/campusSale/add', campusSale.add);
 app.get('/school/campusSale/search/:page/:size', campusSale.search);
 // 删除动态
 app.delete('/school/campusSale/delete/:id', campusSale.delete);
-// // 发表评论
-// app.post('/school/campusSale/user/feed/comment',campusSale.feed);
-// // 删除评论
-// app.delete('/school/campusSale/user/feed/comment/:commentId/delete',campusSale.delFeed);
-// 点赞
-//app.get('/school/campusSale/user/feed/:id/like',campusSale.likeFeed);
-// 取消赞
-//app.get('/school/campusSale/user/feed/:id/cancelLike',campusSale.cancelLike);
+
+//-----------------------------校园活动----------------------------------
+// 发表校园活动
+app.post('/school/activity/add', activity.add);
+// 获取校园活动
+app.get('/school/activity/search/:page/:size', activity.search);
+// 删除校园活动
+app.delete('/school/activity/delete/:id', activity.delete);
+
+//-----------------------------学习交流--------------------------------
+// 发表学习交流
+app.post('/school/study/add', study.add);
+// 获取学习交流
+app.get('/school/study/search/:page/:size', study.search);
+// 删除学习交流
+app.delete('/school/study/delete/:id', study.delete);
+
+//-------------------------------校园招聘--------------------------------
+// 发表校园招聘
+app.post('/school/work/add', work.add);
+// 获取校园招聘
+app.get('/school/work/search/:page/:size', work.search);
+// 删除校园招聘
+app.delete('/school/work/delete/:id', work.delete);
 
 
 

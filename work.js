@@ -9,27 +9,24 @@ var connection = mysql.createConnection({
 
 connection.connect();
 /**
- * 发表动态
+ * 发表活动
  * @param {Object} req
  * @param {Object} res
  */
 exports.add = function(req, res) {
 	console.log(req.body);
-	console.log(req.body.mobile);
-	insertCampusSale(req.body.userId, req.body.content, req.body.image, res);
-
-
+	insertWork(req.body.userId, req.body.title, req.body.content, req.body.image, res);
 }
 
+//获取所有招聘信息
 exports.search = function(req, res){
 	console.log(req.params.page);
 	console.log(typeof req.params.size);
 	console.log(req.params.size * req.params.page);
-	//	查询所有动态列表
 	var totalRecords;
 //	var sql = 'select * from sale limit  ' + req.params.size * req.params.page + ',' + req.params.size;
-	var sql = 'select sale.*, user.avatar,user.username from sale left join user on sale.userId = user.id order by sale.createTime desc limit  ' + req.params.size * req.params.page + ',' + req.params.size;
-	var all = 'select count(*) as totalRecords from sale';
+	var sql = 'select work.*, user.avatar,user.username from work left join user on work.userId = user.id order by work.createTime desc limit  ' + req.params.size * req.params.page + ',' + req.params.size;
+	var all = 'select count(*) as totalRecords from work';
 	connection.query(all, function(err, result) {
 		if(err) {
 			console.log(err.message);
@@ -69,12 +66,12 @@ exports.search = function(req, res){
 	});
 
 }
-// 删除校园特卖动态
+// 删除招聘
 exports.delete = function (req,res){
 	console.log(req.params.id);
 	console.log(typeof req.params.id);
 	//	删除动态
-	var delSql = 'DELETE FROM sale where id="' + req.params.id + '"';
+	var delSql = 'DELETE FROM work where id="' + req.params.id + '"';
 	connection.query(delSql, function(err, result) {
 		if(err) {
 			console.log(err.message);
@@ -102,11 +99,10 @@ exports.delete = function (req,res){
 
 }
 
-//	校园特卖信息插入到数据库
-function insertCampusSale(userId, content, image, res) {
-	var addSql = 'INSERT INTO sale(id,userId, content, image) VALUES(?,?,?,?)';
-	var id = uuid();
-	var addSqlParams = [id,userId, content, image];
+//	新建招聘信息
+function insertWork(userId, title, content, image, res) {
+	var addSql = 'INSERT INTO work(userId, title, content, image) VALUES(?,?,?,?)';
+	var addSqlParams = [userId, title, content, image];
 	console.log(addSqlParams)
 	connection.query(addSql, addSqlParams, function(err, result) {
 		if(err) {
@@ -131,19 +127,5 @@ function insertCampusSale(userId, content, image, res) {
 
 }
 
-function uuid() {
-	var lut = [];
-	for(var i = 0; i < 256; i++) {
-		lut[i] = (i < 16 ? '0' : '') + (i).toString(16);
-	}
-	var d0 = Math.random() * 0xffffffff | 0;
-	var d1 = Math.random() * 0xffffffff | 0;
-	var d2 = Math.random() * 0xffffffff | 0;
-	var d3 = Math.random() * 0xffffffff | 0;
-	return lut[d0 & 0xff] + lut[d0 >> 8 & 0xff] + lut[d0 >> 16 & 0xff] + lut[d0 >> 24 & 0xff] +
-		lut[d1 & 0xff] + lut[d1 >> 8 & 0xff] + lut[d1 >> 16 & 0x0f | 0x40] + lut[d1 >> 24 & 0xff] +
-		lut[d2 & 0x3f | 0x80] + lut[d2 >> 8 & 0xff] + lut[d2 >> 16 & 0xff] + lut[d2 >> 24 & 0xff] +
-		lut[d3 & 0xff] + lut[d3 >> 8 & 0xff] + lut[d3 >> 16 & 0xff] + lut[d3 >> 24 & 0xff];
-}
 
 

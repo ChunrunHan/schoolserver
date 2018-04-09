@@ -1,0 +1,13 @@
+{
+  "Statement": [
+    {
+      "Action": [
+        "oss:GetObject",
+        "oss:ListObjects"
+      ],
+      "Effect": "Allow",
+      "Resource": ["acs:oss:*:*:zaoyuan/*", "acs:oss:*:*:zaoyuan"]
+    }
+  ],
+  "Version": "1"
+}

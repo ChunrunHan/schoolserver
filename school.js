@@ -2,7 +2,7 @@
 var express = require('express');
 var app = express();
 var cors = require('cors'); //	解决跨域
-var bodyParser = require('body-parser');
+var bodyParser = require('body-parser'); //解析post数据
 var sts = require('./sts');
 var user = require('./user');
 var phone = require('./phone');
